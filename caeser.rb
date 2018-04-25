@@ -1,14 +1,13 @@
 require 'sinatra' 
 require  'sinatra/reloader' if development?
 
-shift_val = pop_shift_select
 
 
 def pop_shift_select
 	 (1..25).to_a.map {|x|"<option value = '#{x}'>#{x}</option>"}.join
 end
 
-def CaeserCipher string, shift= 0
+def caeser_cipher string, shift= 0
 		 
 	output = []
 
@@ -41,8 +40,15 @@ def CaeserCipher string, shift= 0
 
 end
 
+
+
+
+shift_val = pop_shift_select
+
+
+
 get '/' do
-	
-	erb :index, :locals => {:shift_val => shift_val}
+	output = caeser_cipher(params["text_in"], params["shift_in"].to_i)
+	erb :index, :locals => {:shift_val => shift_val, :output => output}
 
 end
