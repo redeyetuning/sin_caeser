@@ -3,6 +3,7 @@ require  'sinatra/reloader' if development?
 
 
 
+
 def pop_shift_select
 	 (1..25).to_a.map {|x|"<option value = '#{x}'>#{x}</option>"}.join
 end
@@ -48,7 +49,7 @@ shift_val = pop_shift_select
 
 
 get '/' do
-	output = caeser_cipher(params["text_in"], params["shift_in"].to_i)
+	output = caeser_cipher(params["text_in"], params["shift_in"].to_i) if params["text_in"]
 	erb :index, :locals => {:shift_val => shift_val, :output => output}
 
 end
